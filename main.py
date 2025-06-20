@@ -8,7 +8,7 @@ import io
 app = FastAPI()
 
 # Load model YOLO
-model = YOLO("weights/your_model.pt")
+model = YOLO("weights/yolo11n_mask_trained.pt")
 confidence_threshold = 0.5
 
 @app.get("/")
