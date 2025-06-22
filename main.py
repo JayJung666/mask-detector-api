@@ -1,8 +1,8 @@
 import cv2
 from ultralytics import YOLO
 
-model = YOLO("weights/best_yolo11n.pt")
-confidence_threshold = 0.5
+model = YOLO("weights/model_best_mask.pt")
+confidence_threshold = 0.3
 
 cap = cv2.VideoCapture(0)
 
@@ -15,9 +15,9 @@ while True:
     result = results[0]
 
     counter = {
-        'with_mask': 0,
-        'without_mask': 0,
-        'mask_weared_incorrect': 0
+        'proper_mask': 0,
+        'no_mask': 0,
+        'improper_mask': 0
     }
 
     if result.boxes is not None and len(result.boxes) > 0:
@@ -33,11 +33,11 @@ while True:
                 counter[class_name] += 1
 
             # Bounding box
-            if class_name == 'with_mask':
+            if class_name == 'proper_mask':
                 color = (0, 255, 0)
-            elif class_name == 'without_mask':
+            elif class_name == 'no_mask':
                 color = (0, 0, 255)
-            elif class_name == 'mask_weared_incorrect':
+            elif class_name == 'improper_mask':
                 color = (0, 255, 255)
             else:
                 color = (255, 255, 255)
